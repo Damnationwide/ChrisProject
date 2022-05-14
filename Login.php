@@ -10,13 +10,12 @@ class Login
 			$servername='localhost';
 			$dbusername='root';
 			$dbpassword='';
-			$dbname='chris_database';
+			$dbname='chris_hacked_database';
 			####################################################
 			$conn=new mysqli($servername,$dbusername,$dbpassword,$dbname);
 			if ($conn->connect_error) die($conn->connect_error);
-			####################################################			
+			####################################################
 			$query="SELECT * from login";
-			
 			$result = $conn->query($query);
 			if(!$result) die($conn->error);
 			####################################################
@@ -28,7 +27,6 @@ class Login
 			{
 				$result->data_seek($i);
 				$row=$result->fetch_array(MYSQLI_ASSOC);
-				#userid = 
 				if($row['userid'] == $user)
 				{	
 					$result->close();
@@ -37,13 +35,11 @@ class Login
  				}
 			}
 			####################################################
-			$pass = password_hash($pass, PASSWORD_DEFAULT);#######################Victor
-			$user = mysqli_real_escape_string($conn, $user);#######################Victor
-
+			$pass = password_hash($pass, PASSWORD_DEFAULT);
+			#$user = mysqli_real_escape_string($conn, $user);
+			####################################################
 			$query="insert into login values('$user','$pass')";
-			
 			$result = $conn->query($query);
-			
 			if(!$result) die($conn->error);
 			####################################################
 			$conn->close();
@@ -55,7 +51,7 @@ class Login
 		$servername='localhost';
 		$dbusername='root';
 		$dbpassword='';
-		$dbname='chris_database';
+		$dbname='chris_hacked_database';
 		####################################################
 		$conn=new mysqli($servername,$dbusername,$dbpassword,$dbname);
 		if ($conn->connect_error) die($conn->connect_error);
@@ -71,21 +67,19 @@ class Login
 		{
 			$result->data_seek($i);
 			$row=$result->fetch_array(MYSQLI_ASSOC);
-
 			$userid=	$row['userid'];
-
 			$password=	$row['password'];
-
-			if(($user == $userid) && (password_verify($pass, $password))) #######################Victor
+			####################### Victor
+			if(($user == $userid) && (password_verify($pass, $password)))
 			{
-				echo 'Password Valid';#######################Victor
+				echo 'Password Valid';
 				return true;
 				break;
 			}
-			else {#######################Victor
-				echo 'Invalid Password';#######################Victor
-				#when adding break, it works fine for bobby, not for bobby5, and works for bobby5/. some kind of row numbers?
+			else {
+				echo 'Invalid Password';
 			}
+			####################### /Victor
 		}
 		####################################################
 		$result->close();
